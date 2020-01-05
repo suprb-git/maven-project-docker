@@ -1,25 +1,31 @@
 pipeline {
       agent any
       stages {
-            stage('Init') {
+            stage('Initialization') {
                   steps {
                         echo 'Hi, this is Anoop from CTRLS'
                         echo 'We are Starting the Testing'
                   }
             }
-            stage('Build') {
+            stage('Deploying war file') {
                   steps {
-                        echo 'Building Sample Maven Project'
+                        sh 'mvn -f pom.xml clean package'
                   }
+				  post {
+                success {
+                    echo "Now Archiving the Artifacts...."
+                    archiveArtifacts artifacts: '**/*.war'
+                }
+             }
             }
-            stage('Deploy') {
+            stage('Create Tomcat Docker Image') {
                   steps {
-                        echo "Deploying in Staging Area"
+                        sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}"
                   }
             }
             stage('Deploy Production') {
                   steps {
-                        echo "Deploying in Production Area"
+                        echo "Deployed sucess"
                   }
             }
       }
