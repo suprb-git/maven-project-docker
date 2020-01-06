@@ -32,8 +32,9 @@ pipeline {
             }
 			stage ('pushing the image to private repo') {
 						steps {
-						sh "docker tag tomcatsamplewebapp:${env.BUILD_ID} cloudlinuxdoc/new-learning-repo:{env.BUILD_ID}"
-						sh "docker push cloudlinuxdoc/new-learning-repo:{env.BUILD_ID}"
+						def num = ${env.BUILD_ID}
+						sh "docker tag tomcatsamplewebapp:${env.BUILD_ID} cloudlinuxdoc/new-learning-repo:${num}"
+						sh "docker push cloudlinuxdoc/new-learning-repo:tomcatsamplewebapp:${num}"
 						echo 'Successfully pushed to hub'
 						}
 			}
