@@ -19,16 +19,20 @@ pipeline {
              }
             }
             stage('Create Tomcat Docker Image') {
-      	    steps {
-			 sh "pwd" 
-			sh "ls -a"
+				steps {
+						sh "pwd" 
+						sh "ls -a"
                         sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}"
-                  }
+                 }
             }
-            stage('Deploying the docker container') {
-                  steps {
-                        sh "docker run -d -p 909${env.BUILD_ID}:8080 tomcatsamplewebapp:${env.BUILD_ID}"
-                  }
-            }
+			stage ('pushing the image to private repo') {
+						steps {
+						sh "docker login"
+						sh "docker tag tomcatsamplewebapp:${env.BUILD_ID} cloudlinuxdoc/tomcatsamplewebapp:{env.BUILD_ID}"
+						sh "docker push cloudlinuxdoc/tomcatsamplewebapp:{env.BUILD_ID}"
+						echo 'successfully pushed to hub"
+						}
+			}
+           
       }
 }
