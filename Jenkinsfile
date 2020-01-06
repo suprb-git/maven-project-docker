@@ -19,15 +19,15 @@ pipeline {
              }
             }
             stage('Create Tomcat Docker Image') {
-                  steps {
+      Deploying    steps {
 			 sh "pwd" 
 			sh "ls -a"
-                        sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}"
+                        sh "docker build . -t tomcatsamplewebapp:${env.BUILD_ID}""
                   }
             }
-            stage('Deploy Production') {
+            stage('Deploying the docker container') {
                   steps {
-                        echo "Deployed sucess"
+                        sh "docker run -d -p 909${env.BUILD_ID}:8080 tomcatsamplewebapp:${env.BUILD_ID}"
                   }
             }
       }
