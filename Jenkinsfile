@@ -30,7 +30,7 @@ pipeline {
 						sh "docker login"
 						sh "docker tag tomcatsamplewebapp:${env.BUILD_ID} cloudlinuxdoc/tomcatsamplewebapp:{env.BUILD_ID}"
 						sh "docker push cloudlinuxdoc/tomcatsamplewebapp:{env.BUILD_ID}"
-						echo 'successfully pushed to hub"
+						echo 'successfully pushed to hub'
 						}
 			}
            
