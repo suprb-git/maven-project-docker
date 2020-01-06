@@ -34,7 +34,7 @@ pipeline {
 						steps {
 						sh "docker tag tomcatsamplewebapp:${env.BUILD_ID} cloudlinuxdoc/new-learning-repo:tomcatsamplewebapp{env.BUILD_ID}"
 						sh "docker push cloudlinuxdoc/new-learning-repo:tomcatsamplewebapp{env.BUILD_ID}"
-						echo 'Successfully pushed to hub"
+						echo 'Successfully pushed to hub'
 						}
 			}
            
