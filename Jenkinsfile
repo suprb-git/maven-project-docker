@@ -1,10 +1,6 @@
 pipeline {
-
-   environment {
-    registry = "cloudlinuxdoc/new-learning-repo"
-    registryCredential = 'cloudlinuxdoc'
-	}
-      agent any
+def num = ${env.BUILD_ID}
+        agent any
       stages {
             stage('Initialization') {
                   steps {
@@ -31,8 +27,7 @@ pipeline {
                  }
             }
 			stage ('pushing the image to private repo') {
-						steps {
-						def num = ${env.BUILD_ID}
+				steps {
 						sh "docker tag tomcatsamplewebapp:${env.BUILD_ID} cloudlinuxdoc/new-learning-repo:${num}"
 						sh "docker push cloudlinuxdoc/new-learning-repo:tomcatsamplewebapp:${num}"
 						echo 'Successfully pushed to hub'
