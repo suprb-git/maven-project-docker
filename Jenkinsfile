@@ -28,7 +28,7 @@ pipeline {
 			stage ('pushing the image to private repo') {
 				steps {
 						sh "docker tag tomcatsamplewebapp:${env.BUILD_ID} cloudlinuxdoc/new-learning-repo/maven:${env.BUILD_ID}"
-						sh "docker login -u cloudlinuxdoc -p linux@C10UD4c registry.hub.docker.com"
+						sh "docker login -u cloudlinuxdoc -p linux@C10UD4c docker.io"
 						sh "docker push cloudlinuxdoc/new-learning-repo/maven:${env.BUILD_ID}"
 						echo 'Successfully pushed to hub'
 						}
